@@ -22,12 +22,12 @@ struct ICBlockchain {
 
 static ICBlockchain blockchain;
 
-void ICBlockchainCreate(ICBlockchain *blockchain);
-ICBlock * ICBlockchainGetLastBlock(ICBlockchain *blockchain);
-ICBlock * ICBlockchainGetSingleBlock(ICBlockchain *blockchain, int index);
-ICBlock * ICBlockchainGetAll(ICBlockchain *blockchain);
-bool ICBlockchainAddBlock(ICBlockchain *blockchain, ICAddress senderAddress, ICAddress receiverAddress, int amount);
-void ICBlockchainLog(ICBlockchain *blockchain);
-bool ICBlockchainIsValid(ICBlockchain *blockchain);
+void ICBlockchainCreate(void);
+ICBlock * ICBlockchainGetLastBlock(void);
+ICBlock * ICBlockchainGetSingleBlock(int index);
+ICBlock * ICBlockchainGetAll(void);
+bool ICBlockchainAddBlock(ICAddress senderAddress, ICAddress receiverAddress, int amount);
+void ICBlockchainLog(void);
+bool ICBlockchainIsValid(void);
 
 #endif

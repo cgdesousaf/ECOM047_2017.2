@@ -10,7 +10,6 @@
 #include "ICBlockchain.h"
 
 int main(int argc, const char * argv[]) {
-    ICBlockchain blockchain;
-    ICBlockchainCreate(&blockchain);
+    ICBlockchainCreate();
     return 0;
 }

@@ -8,13 +8,14 @@
 
 #include "ICBlockchain.h"
 
-void ICBlockchainCreate(ICBlockchain *_blockchain){
+void ICBlockchainCreate(){
     // Cria uma blockchain
     blockchain.index = 0;
     
     ICHash hash;
     ICHash prevHash;
     
+    memset(&hash, '0', sizeof hash);
     memset(&prevHash, '0', sizeof prevHash);
     
     ICBlockData blockData;
@@ -31,33 +32,31 @@ void ICBlockchainCreate(ICBlockchain *_blockchain){
     block.previousHash = prevHash;
     
     blockchain.blocks[0] = block;
-    
-    _blockchain = &blockchain;
 }
 
-ICBlock * ICBlockchainGetLastBlock(ICBlockchain *blockchain){
-    int index = blockchain->index;
+ICBlock * ICBlockchainGetLastBlock(){
+    int index = blockchain.index;
     if(index >= 0){
-        return &blockchain->blocks[index];
+        return &blockchain.blocks[index];
     } else {
         return NULL;
     }
 }
 
-ICBlock * ICBlockchainGetSingleBlock(ICBlockchain *blockchain, int index){
-    int _index = blockchain->index;
+ICBlock * ICBlockchainGetSingleBlock(int index){
+    int _index = blockchain.index;
     if(index <= _index){
-        return &blockchain->blocks[index];
+        return &blockchain.blocks[index];
     } else {
         return NULL;
     }
 }
 
-ICBlock * ICBlockchainGetAll(ICBlockchain *blockchain){
-    return blockchain->blocks;
+ICBlock * ICBlockchainGetAll(){
+    return blockchain.blocks;
 }
 
-bool ICBlockchainAddBlock(ICBlockchain *_blockchain, ICAddress senderAddress, ICAddress receiverAddress, int amount){
+bool ICBlockchainAddBlock(ICAddress senderAddress, ICAddress receiverAddress, int amount){
     
     // Blockchain has reached its limit
     if(blockchain.index == 99){
@@ -89,26 +88,23 @@ bool ICBlockchainAddBlock(ICBlockchain *_blockchain, ICAddress senderAddress, IC
     index = index + 1;
     blockchain.blocks[index] = block;
     blockchain.index = index;
-    
-    _blockchain = &blockchain;
-    
     return true;
 }
 
-void ICBlockchainLog(ICBlockchain *blockchain){
-    int size = blockchain->index + 1;
+void ICBlockchainLog(){
+    int size = blockchain.index + 1;
     for(int i = 0; i < size; i++){
-        ICBlock block = blockchain->blocks[i];
+        ICBlock block = blockchain.blocks[i];
         char * output = NULL;
         ICBlockToString(output, &block);
         printf("%s", output);
     }
 }
 
-bool ICBlockchainIsValid(ICBlockchain *blockchain){
-    int index = blockchain->index;
+bool ICBlockchainIsValid(){
+    int index = blockchain.index;
     for(int i = index; i > 0; i--){
-        ICBlock currBlock = blockchain->blocks[i];
+        ICBlock currBlock = blockchain.blocks[i];
         bool result = ICHashEquals(&currBlock.hash, &currBlock.previousHash);
         if(result == false){
             return false;

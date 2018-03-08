@@ -1,4 +1,4 @@
-BLOCKCHAIN=ICBlockchain
+lBLOCKCHAIN=ICBlockchain
 MAIN=main.c
 TARGET=test
 
