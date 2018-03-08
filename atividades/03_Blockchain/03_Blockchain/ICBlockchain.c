@@ -12,14 +12,20 @@ void ICBlockchainCreate(ICBlockchain *_blockchain){
     // Cria uma blockchain
     blockchain.index = 0;
     
-    // Cria o bloco gênesis
-    ICBlock block;
     ICHash hash;
     ICHash prevHash;
+    
+    memset(&prevHash, '0', sizeof prevHash);
+    
     ICBlockData blockData;
+    blockData.receiverAddress = 1;
+    blockData.senderAddress = 2;
+    blockData.amout = 50;
     
     ICHashCreate(&hash, &blockData, &prevHash);
     
+    // Cria o bloco gênesis
+    ICBlock block;
     block.data = blockData;
     block.hash = hash;
     block.previousHash = prevHash;

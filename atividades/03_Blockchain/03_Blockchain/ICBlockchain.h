@@ -9,6 +9,8 @@
 #ifndef icblockchain_h
 #define icblockchain_h
 
+#include <string.h>
+
 #include "ICBlock.h"
 
 #define BLOCKCHAIN_MAX_SIZE 100
