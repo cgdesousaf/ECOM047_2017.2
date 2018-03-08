@@ -7,9 +7,10 @@
 //
 
 #include <stdio.h>
+#include "ICBlockchain.h"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+    ICBlockchain blockchain;
+    ICBlockchainCreate(&blockchain);
     return 0;
 }

@@ -8,10 +8,9 @@
 
 #include "ICBlockchain.h"
 
-void ICBlockchainCreate(ICBlockchain *blockchain){
+void ICBlockchainCreate(ICBlockchain *_blockchain){
     // Cria uma blockchain
-    ICBlockchain _blockchain;
-    _blockchain.index = 0;
+    blockchain.index = 0;
     
     // Cria o bloco gênesis
     ICBlock block;
@@ -25,9 +24,9 @@ void ICBlockchainCreate(ICBlockchain *blockchain){
     block.hash = hash;
     block.previousHash = prevHash;
     
-    _blockchain.blocks[0] = block;
+    blockchain.blocks[0] = block;
     
-    blockchain = &_blockchain;
+    _blockchain = &blockchain;
 }
 
 ICBlock * ICBlockchainGetLastBlock(ICBlockchain *blockchain){
@@ -52,17 +51,17 @@ ICBlock * ICBlockchainGetAll(ICBlockchain *blockchain){
     return blockchain->blocks;
 }
 
-bool ICBlockchainAddBlock(ICBlockchain *blockchain, ICAddress senderAddress, ICAddress receiverAddress, int amount){
+bool ICBlockchainAddBlock(ICBlockchain *_blockchain, ICAddress senderAddress, ICAddress receiverAddress, int amount){
     
     // Blockchain has reached its limit
-    if(blockchain->index == 99){
+    if(blockchain.index == 99){
         return false;
     }
     
     // Get the current last block
     ICBlock currBlock;
-    int index = blockchain->index;
-    currBlock = blockchain->blocks[index];
+    int index = blockchain.index;
+    currBlock = blockchain.blocks[index];
     
     // Instantiate a new block
     ICBlock block;
@@ -82,15 +81,16 @@ bool ICBlockchainAddBlock(ICBlockchain *blockchain, ICAddress senderAddress, ICA
     block.previousHash = currBlock.hash;
     
     index = index + 1;
-    blockchain->blocks[index] = block;
-    blockchain->index = index;
+    blockchain.blocks[index] = block;
+    blockchain.index = index;
+    
+    _blockchain = &blockchain;
     
     return true;
 }
 
 void ICBlockchainLog(ICBlockchain *blockchain){
     int size = blockchain->index + 1;
-    
     for(int i = 0; i < size; i++){
         ICBlock block = blockchain->blocks[i];
         char * output = NULL;
