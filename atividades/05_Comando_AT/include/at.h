@@ -14,13 +14,14 @@
 #include <gpio.h>
 #include <device.h>
 #include <stdio.h>
+#include <string.h>
 
-#define ASCII_TO_INT(x) x - '0'
+#define MAX_CMD_LEN 128
 
 typedef void(*functionPointerType)(void);
 
 struct ATCommand {
-    uint8_t data[128];
+    uint8_t data[MAX_CMD_LEN];
     uint8_t index;
 };
 
@@ -34,7 +35,7 @@ struct ATCommandStruct {
     char const *types;
 };
 
-void ATCommandInvoker(struct ATCommand * command);
+void ATCommandInvoker(struct ATCommand * command, const char * command_name, uint8_t command_len);
 void ATCommandParser(uint8_t data);
 
 void ATTestCommunication();
