@@ -35,7 +35,7 @@ struct ATCommandStruct {
     char const *types;
 };
 
-void ATCommandInvoker(struct ATCommand * command, const char * command_name, uint8_t command_len);
+void ATCommandInvoker(struct ATCommand * command, uint8_t * command_name, uint8_t command_len);
 void ATCommandParser(uint8_t data);
 
 void ATTestCommunication();

@@ -1,5 +1,6 @@
 set(ENV{ZEPHYR_BASE} /Users/cristopher/zephyr)
 set(ENV{ZEPHYR_TOOLCHAIN_VARIANT} gccarmemb)
+set(ENV{GCCARMEMB_TOOLCHAIN_PATH} /Users/cristopher/gcc-arm-none-eabi-7-2017-q4-major)
 
 set(BOARD "bbc_microbit")
 

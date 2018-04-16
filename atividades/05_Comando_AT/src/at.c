@@ -11,6 +11,7 @@ static struct ATCommand current_command = {};
 
 const struct ATCommandStruct ATCommands[] = {
     {"Test", &ATTestCommunication, 0, ""},
+    {"Params", &ATTestParams, 4, ""}
     {"", 0, 0, ""} // End of struct
 };
 
@@ -33,9 +34,10 @@ void ATCommandParser(uint8_t data){
         printk("\n");
         if((current_command.data[0] == 'A') && ( current_command.data[1] == 'T') ){
             if(current_command.data[2] == '+'){
-                char command_name[10];
+                uint8_t command_name[10] = {0};
                 uint8_t command_len = 0;
                 for(uint8_t i = 0; i < 10; i++){
+                    printk("%d", i);
                     // Check if the command string has ended or if it doesn't exist one.
                     if((current_command.data[i+3] == '=') || (current_command.data[i+3] == '\0')){
                         break;
@@ -57,9 +59,8 @@ void ATCommandParser(uint8_t data){
     }
 }
 
-void ATCommandInvoker(struct ATCommand * command, const char * command_name, uint8_t command_len){
-    printk("\nCalling invoker\n");
-    sprintk("Command: %s", command_name);
+void ATCommandInvoker(struct ATCommand * command, uint8_t * command_name, uint8_t command_len){
+    printk("Calling invoker\n %s", command_name);
     
     uint8_t data_index = 3 + command_len;
     
@@ -86,4 +87,5 @@ void ATCommandInvoker(struct ATCommand * command, const char * command_name, uin
     
     // Execute the command.
     printk("\nExecuting command\n");
+
 }
