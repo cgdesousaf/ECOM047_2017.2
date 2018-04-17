@@ -8,17 +8,13 @@
 #ifndef at_h
 #define at_h
 
-#include <zephyr.h>
-#include <misc/printk.h>
-#include <board.h>
-#include <gpio.h>
-#include <device.h>
-#include <stdio.h>
-#include <string.h>
+#include "ICLEDMatrix.h"
+
+#define ASCII_TO_INT(x) x - '0'
 
 #define MAX_CMD_LEN 128
 
-typedef void(*functionPointerType)(void);
+typedef int(*functionPointerType)(const uint8_t **, const uint8_t);
 
 struct ATCommand {
     uint8_t data[MAX_CMD_LEN];
@@ -35,9 +31,9 @@ struct ATCommandStruct {
     char const *types;
 };
 
-void ATCommandInvoker(struct ATCommand * command, uint8_t * command_name, uint8_t command_len);
+void ATCommandInvoker(uint8_t * command_name, uint8_t command_len);
 void ATCommandParser(uint8_t data);
 
-void ATTestCommunication();
+int ATTestCommunication();
 
 #endif /* at_h */
